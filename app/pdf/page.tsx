@@ -154,6 +154,52 @@ const GoldLoanForm = () => {
         window.print();
     };
 
+    function generateCustomString(length = 26) {
+        const digits = "0123456789";
+        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        let result = "";
+
+        // First 2 numeric
+        for (let i = 0; i < 2; i++) {
+            result += digits.charAt(Math.floor(Math.random() * digits.length));
+        }
+
+        // Remaining random alphanumeric (digits bhi aa sakte hain)
+        for (let i = 2; i < length; i++) {
+            result += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+
+        return result;
+    }
+
+    function formatCustomDate(dateInput: string) {
+        const date = new Date(dateInput);
+
+        // Weekday short names
+        const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        // Month short names
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+                        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+        const weekday = weekdays[date.getDay()];
+        const month = months[date.getMonth()];
+        const day = date.getDate();
+        
+        // Time parts
+        const hours = String(date.getHours()).padStart(2, "0");
+        const minutes = String(date.getMinutes()).padStart(2, "0");
+        const seconds = String(date.getSeconds()).padStart(2, "0");
+
+        // Year
+        const year = date.getFullYear();
+
+        // Timezone abbreviation (IST for India)
+        const timezone = "IST";
+
+        return `${weekday} ${month} ${day} ${hours}:${minutes}:${seconds} ${timezone} ${year}`;
+        }
+
     return (
         <div className="p-6">
             <style>
@@ -215,6 +261,15 @@ const GoldLoanForm = () => {
 
                 .page-break-before {
                     page-break-before: always;
+                }
+
+                .print-footer {
+                    position: fixed;
+                    bottom: 0;
+                    right: 0;
+                    text-align: right;
+                    font-size: 12px;
+                    padding: 8px;
                 }
             }
             `}
@@ -812,6 +867,12 @@ const GoldLoanForm = () => {
                         </tr>
                     </tbody>
                 </table>
+
+                <div className="print-footer">
+                    <p>eSigned using Aadhaar (Legality.com-<br></br>{generateCustomString()})</p>
+                    <p style={{ textTransform: 'uppercase' }}>{formData.name}</p>
+                    <p>Date: {formatCustomDate(formData.date)}</p>
+                </div>
             </div>
         </div>
     );

@@ -529,7 +529,7 @@ const GoldLoanForm = () => {
             <div id="print-section" className=" print:block">
 
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/jana-finance-logo.png" alt="Bank Logo" className="h-[80px] mb-16 -ml-4" />
+                <img src="jana-finance-logo.png" alt="Bank Logo" className="h-[80px] mb-16 -ml-4" />
                 <h1 className="font-bold mb-4 text-center">Gold Loan Application Form</h1>
 
                 <table className="w-full border-collapse mt-12">
